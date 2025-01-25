@@ -1,0 +1,38 @@
+# templates/growthbook-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-growthbook
+  labels:
+    app: growthbook
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: growthbook
+  template:
+    metadata:
+      labels:
+        app: growthbook
+    spec:
+      containers:
+        - name: growthbook
+          image: "{{ .Values.growthbook.image.repository }}:{{ .Values.growthbook.image.tag }}"
+          imagePullPolicy: {{ .Values.growthbook.image.pullPolicy }}
+          ports:
+          {{- range $index, $port := .Values.growthbook.service.ports }}
+          - name: {{ $port.name }}
+            containerPort: {{ $port.port }}
+          {{- end }}
+          env:
+          {{- range $key, $value := .Values.growthbook.env }}
+                - name: {{ $key }}
+                  value: {{ $value | quote }}
+          {{- end }}
+          volumeMounts:
+            - name: growthbook-uploads
+              mountPath: /usr/local/src/app/packages/back-end/uploads
+      volumes:
+        - name: growthbook-uploads
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-growthbook-uploads
