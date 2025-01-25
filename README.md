@@ -25,14 +25,13 @@ helm uninstall growthbook -n growthbook
 
 ## Configuration
 
-Configuration options can be set in the `values.yaml` file. Below is an example configuration:
+Create a copy of `values.yaml.example` to `values.yaml` then configuration options can be set in the `values.yaml` file. Below is an example configuration:
 
 ```yaml
-apiEndpoint: 'https://api.example.com'
-apiKey: 'your-api-key'
-chartOptions:
-  type: 'line'
-  color: '#00ff00'
+growthbook:
+  env:
+    APP_ORIGIN: "https://growthbook-origin.example.com:443"
+    API_HOST: "https://growthbook-api.example.com:443"
 ```
 
 ## Contributing

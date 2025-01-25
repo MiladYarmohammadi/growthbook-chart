@@ -1,3 +1,8 @@
-/nexus-registry-pull-secret.yml
-/templates
-/values.yaml
+values.yaml
+*pull-secret.yml
+/charts/
+/tmp/
+/*.lock
+.DS_Store
+.idea/
+/*.tgz
