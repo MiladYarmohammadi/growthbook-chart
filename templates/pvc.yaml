@@ -1,0 +1,16 @@
+# templates/growthbook-pvc.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Release.Name }}-growthbook-uploads
+  labels:
+    app: growthbook
+spec:
+  accessModes:
+    - {{ .Values.growthbook.persistence.accessMode }}
+  resources:
+    requests:
+      storage: {{ .Values.growthbook.persistence.size }}
+  {{- if .Values.growthbook.persistence.storageClass }}
+  storageClassName: {{ .Values.growthbook.persistence.storageClass }}
+  {{- end }}
