@@ -1,0 +1,11 @@
+# Chart.yaml
+apiVersion: v2
+name: growthbook-chart
+description: A Helm chart for Growthbook with Bitnami MongoDB
+version: "0.1.0"
+appVersion: "1.0"
+dependencies:
+  - name: mongodb
+    version: "16.4.2"
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: mongodb.enabled
