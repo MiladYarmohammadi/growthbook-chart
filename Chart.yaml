@@ -6,6 +6,19 @@ version: "0.1.0"
 appVersion: "1.0"
 dependencies:
   - name: mongodb
+    import-values:
+      - mongodb.persistence.enabled
+      - mongodb.persistence.size
+      - mongodb.auth.rootUser
+      - mongodb.auth.rootPassword
+      - mongodb.resources.requests.cpu
+      - mongodb.resources.requests.memory
+      - mongodb.resources.requests.ephemeral-storage
+      - mongodb.resources.limits.cpu
+      - mongodb.resources.limits.memory
+      - mongodb.resources.limits.ephemeral-storage
+      - mongodb.persistence.storageClass
+      - mongodb.persistence.accessMode
     version: "16.4.2"
     repository: "https://charts.bitnami.com/bitnami"
     condition: mongodb.enabled
