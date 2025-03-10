@@ -1,4 +1,27 @@
 # values.yaml
+namespace:
+  name: growthbook
+  quota:
+    requests:
+      cpu: "2"
+      memory: 4Gi
+    limits:
+      cpu: "4"
+      memory: 8Gi
+    pods: "10"
+    services: "5"
+    persistentvolumeclaims: "5"
+    configmaps: "10"
+    secrets: "10"
+    replicationcontrollers: "5"
+    resourcequotas: "1"
+  limits:
+    cpu: "2"
+    memory: 2Gi
+    minCPU: 100m
+    minMemory: 128Mi
+
+
 mongodb:
   enabled: true
   auth:
@@ -6,7 +29,19 @@ mongodb:
     rootPassword: password
   persistence:
     enabled: true
-    size: 8Gi
+    size: 20Gi
+    storageClass: "-"
+    accessMode: "ReadWriteOnce"
+  resources:
+    enabled: true
+    requests:
+      cpu: 100m
+      memory: 128Mi
+      ephemeral-storage: 1Gi
+    limits:
+      cpu: 500m
+      memory: 2048Mi
+      ephemeral-storage: 2Gi
 
 growthbook:
   annotations:
@@ -38,7 +73,16 @@ growthbook:
     size: 8Gi
     storageClass: "-"
     accessMode: "ReadWriteOnce"
-
+  resources:
+    enabled: true
+    requests:
+      cpu: 100m
+      memory: 128Mi
+      ephemeral-storage: 1Gi
+    limits:
+      cpu: 500m
+      memory: 1024Mi
+      ephemeral-storage: 2Gi
   autoscaling:
     enabled: false
     minReplicas: 1
