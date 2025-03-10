@@ -6,7 +6,9 @@ metadata:
   labels:
     app: growthbook
 spec:
-  replicas: 1
+  {{- if not .Values.growthbook.autoscaling.enabled }}
+  replicas: {{ .Values.growthbook.replicaCount }}
+  {{- end }}
   selector:
     matchLabels:
       app: growthbook
@@ -19,6 +21,17 @@ spec:
         - name: growthbook
           image: "{{ .Values.growthbook.image.repository }}:{{ .Values.growthbook.image.tag }}"
           imagePullPolicy: {{ .Values.growthbook.image.pullPolicy }}
+          {{- if .Values.growthbook.resources.enabled }}
+          resources:
+            requests:
+              cpu: .Values.growthbook.resources.requests.cpu
+              memory: .Values.growthbook.resources.requests.memory
+              ephemeral-storage: .Values.growthbook.resources.requests.ephemeral-storage
+            limits:
+              cpu: .Values.growthbook.resources.limits.cpu
+              memory: .Values.growthbook.resources.limits.memory
+              ephemeral-storage: .Values.growthbook.resources.limits.ephemeral-storage
+          {{- end }}
           ports:
           {{- range $index, $port := .Values.growthbook.service.ports }}
           - name: {{ $port.name }}
