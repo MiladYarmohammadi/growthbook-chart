@@ -37,11 +37,9 @@ mongodb:
     requests:
       cpu: 100m
       memory: 128Mi
-      ephemeral-storage: 1Gi
     limits:
       cpu: 500m
       memory: 2048Mi
-      ephemeral-storage: 2Gi
 
 growthbook:
   annotations:
@@ -78,11 +76,9 @@ growthbook:
     requests:
       cpu: 100m
       memory: 128Mi
-      ephemeral-storage: 1Gi
     limits:
       cpu: 500m
       memory: 1024Mi
-      ephemeral-storage: 2Gi
   autoscaling:
     enabled: false
     minReplicas: 1

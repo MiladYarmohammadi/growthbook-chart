@@ -24,13 +24,11 @@ spec:
           {{- if .Values.growthbook.resources.enabled }}
           resources:
             requests:
-              cpu: .Values.growthbook.resources.requests.cpu
-              memory: .Values.growthbook.resources.requests.memory
-              ephemeral-storage: .Values.growthbook.resources.requests.ephemeral-storage
+              cpu: {{ .Values.growthbook.resources.requests.cpu }}
+              memory: {{ .Values.growthbook.resources.requests.memory }}
             limits:
-              cpu: .Values.growthbook.resources.limits.cpu
-              memory: .Values.growthbook.resources.limits.memory
-              ephemeral-storage: .Values.growthbook.resources.limits.ephemeral-storage
+              cpu: {{ .Values.growthbook.resources.limits.cpu }}
+              memory: {{ .Values.growthbook.resources.limits.memory }}
           {{- end }}
           ports:
           {{- range $index, $port := .Values.growthbook.service.ports }}

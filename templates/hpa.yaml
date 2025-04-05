@@ -1,5 +1,5 @@
 {{- if .Values.growthbook.autoscaling.enabled }}
-apiVersion: autoscaling/v2beta1
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: {{ include "growthbook-chart.fullname" . }}
@@ -9,7 +9,7 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "growthbook-chart.fullname" . }}
+    name: {{ .Release.Name }}-growthbook
   minReplicas: {{ .Values.growthbook.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.growthbook.autoscaling.maxReplicas }}
   metrics:
@@ -17,12 +17,16 @@ spec:
     - type: Resource
       resource:
         name: cpu
-        targetAverageUtilization: {{ .Values.growthbook.autoscaling.targetCPUUtilizationPercentage }}
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.growthbook.autoscaling.targetCPUUtilizationPercentage }}
     {{- end }}
     {{- if .Values.growthbook.autoscaling.targetMemoryUtilizationPercentage }}
     - type: Resource
       resource:
         name: memory
-        targetAverageUtilization: {{ .Values.growthbook.autoscaling.targetMemoryUtilizationPercentage }}
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.growthbook.autoscaling.targetMemoryUtilizationPercentage }}
     {{- end }}
 {{- end }}
